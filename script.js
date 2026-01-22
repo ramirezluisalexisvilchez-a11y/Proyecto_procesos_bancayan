@@ -139,4 +139,4 @@ window.addEventListener('resize', () => {
     }
 });
 
-console.log('Envíos Rapidín - Script cargado correctamente');
+console.log('Envíos Shalom - Script cargado correctamente');
