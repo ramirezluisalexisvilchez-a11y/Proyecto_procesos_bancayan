@@ -1934,3 +1934,130 @@ code {
     }
 }
 
+/* Recojo Form Styles */
+.recojo-form {
+    background: white;
+    padding: 25px;
+    border-radius: 8px;
+    border: 2px solid var(--primary-color);
+    max-width: 500px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.recojo-form .form-section {
+    margin-bottom: 20px;
+}
+
+.recojo-form .form-section h3 {
+    color: var(--secondary-color);
+    margin-bottom: 15px;
+    font-size: 16px;
+}
+
+.recojo-form .form-group {
+    margin-bottom: 15px;
+}
+
+.recojo-form .form-group label {
+    display: block;
+    margin-bottom: 5px;
+    color: #333;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.recojo-form .form-group input,
+.recojo-form .form-group textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+    font-family: inherit;
+    transition: all 0.3s ease;
+}
+
+.recojo-form .form-group input:focus,
+.recojo-form .form-group textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.1);
+}
+
+.recojo-form .form-group textarea {
+    resize: vertical;
+    min-height: 70px;
+}
+
+/* Recojos List */
+.recojos-list {
+    display: grid;
+    gap: 15px;
+}
+
+.recojo-item {
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    border-left: 4px solid var(--accent-color);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+}
+
+.recojo-item:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.recojo-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.recojo-header h3 {
+    color: var(--secondary-color);
+    font-size: 16px;
+    margin: 0;
+}
+
+.status-badge.registrado {
+    background: #28a745;
+    color: white;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.recojo-item p {
+    margin: 5px 0;
+    font-size: 13px;
+    color: #666;
+}
+
+.recojo-time {
+    color: #999;
+    font-size: 12px;
+    margin-top: 10px;
+    font-style: italic;
+}
+
+.alert-success {
+    background: #d4edda;
+    border: 1px solid #c3e6cb;
+    border-radius: 8px;
+    padding: 15px;
+    color: #155724;
+    margin-bottom: 20px;
+}
+
+.alert-success h3 {
+    color: #155724;
+    margin-bottom: 10px;
+}
+
+.alert-success p {
+    margin: 5px 0;
+}
+

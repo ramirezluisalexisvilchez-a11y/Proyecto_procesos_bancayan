@@ -38,6 +38,7 @@
         <aside class="dashboard-sidebar">
             <ul class="sidebar-menu">
                 <li><a href="#" class="menu-link active" data-view="inicio">📊 Inicio</a></li>
+                <li><a href="#" class="menu-link" data-view="recojo">📍 Registrar Recojo</a></li>
                 <li><a href="#" class="menu-link" data-view="crear-envio">📝 Crear Envío</a></li>
                 <li><a href="#" class="menu-link" data-view="envios">📦 Todos los Envíos</a></li>
                 <li><a href="#" class="menu-link" data-view="usuarios">👥 Usuarios</a></li>
@@ -87,6 +88,56 @@
                     ℹ️ <strong>Credenciales de administrador:</strong><br>
                     Email: <code>admin@shalom.com</code><br>
                     Contraseña: <code>admin123</code>
+                </div>
+            </div>
+
+            <!-- Vista: Registrar Recojo -->
+            <div id="vista-recojo" class="dashboard-view">
+                <div class="view-header">
+                    <h1>Registrar Recojo en Local</h1>
+                    <p>Registra un recojo rápido con datos del cliente</p>
+                </div>
+
+                <form id="form-recojo-admin" class="recojo-form">
+                    <div class="form-section">
+                        <h3>📍 Datos del Cliente</h3>
+                        
+                        <div class="form-group">
+                            <label for="recojo-dni">DNI del Cliente *</label>
+                            <input type="text" id="recojo-dni" required placeholder="12345678" maxlength="8">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="recojo-codigo">Código de Cliente (Opcional)</label>
+                            <input type="text" id="recojo-codigo" placeholder="CLI-001">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="recojo-descripcion">Descripción del Paquete *</label>
+                            <textarea id="recojo-descripcion" required placeholder="¿Qué contiene el paquete?"></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="recojo-peso">Peso (kg) *</label>
+                            <input type="number" id="recojo-peso" min="0.1" step="0.1" required placeholder="2.5">
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Registrar Recojo</button>
+                </form>
+
+                <div id="recojo-success" style="display: none;" class="alert alert-success">
+                    <h3>✅ Recojo Registrado</h3>
+                    <p><strong>Número de Recojo:</strong> <span id="recojo-numero"></span></p>
+                    <p><strong>DNI:</strong> <span id="recojo-dni-display"></span></p>
+                    <p><strong>Fecha:</strong> <span id="recojo-fecha"></span></p>
+                </div>
+
+                <div id="recojos-list-container" style="margin-top: 40px;">
+                    <h2>Recojos Registrados Hoy</h2>
+                    <div id="recojos-list" class="recojos-list">
+                        <p class="empty-state">No hay recojos registrados</p>
+                    </div>
                 </div>
             </div>
 
@@ -368,6 +419,81 @@
             }
         }
 
+        // Calcular tarifa basada en peso
+        function calcularTarifa(peso) {
+            const tarifaBase = parseFloat(localStorage.getItem('tarifaBase')) || 15;
+            const costoKg = parseFloat(localStorage.getItem('costoKg')) || 3.5;
+            return (tarifaBase + (peso * costoKg)).toFixed(2);
+        }
+
+        // Registrar Recojo
+        document.getElementById('form-recojo-admin').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const dni = document.getElementById('recojo-dni').value;
+            const codigo = document.getElementById('recojo-codigo').value;
+            const descripcion = document.getElementById('recojo-descripcion').value;
+            const peso = parseFloat(document.getElementById('recojo-peso').value);
+
+            const nuevoRecojo = {
+                id: 'REC-' + String(Date.now()).slice(-6),
+                dni: dni,
+                codigo: codigo,
+                descripcion: descripcion,
+                peso: peso,
+                tarifa: calcularTarifa(peso),
+                fechaRecojo: new Date().toISOString(),
+                estado: 'Registrado'
+            };
+
+            let recojos = JSON.parse(localStorage.getItem('shalomRecojos') || '[]');
+            recojos.push(nuevoRecojo);
+            localStorage.setItem('shalomRecojos', JSON.stringify(recojos));
+
+            // Mostrar confirmación
+            document.getElementById('recojo-success').style.display = 'block';
+            document.getElementById('recojo-numero').textContent = nuevoRecojo.id;
+            document.getElementById('recojo-dni-display').textContent = dni;
+            document.getElementById('recojo-fecha').textContent = new Date().toLocaleString('es-PE');
+
+            // Limpiar formulario
+            this.reset();
+
+            // Recargar lista de recojos
+            setTimeout(() => {
+                cargarRecojosDelDia();
+                document.getElementById('recojo-success').style.display = 'none';
+            }, 3000);
+        });
+
+        // Cargar recojos del día
+        function cargarRecojosDelDia() {
+            const recojos = JSON.parse(localStorage.getItem('shalomRecojos') || '[]');
+            const hoy = new Date().toDateString();
+            const recojosHoy = recojos.filter(r => new Date(r.fechaRecojo).toDateString() === hoy);
+            
+            const recojosList = document.getElementById('recojos-list');
+
+            if (recojosHoy.length === 0) {
+                recojosList.innerHTML = '<p class="empty-state">No hay recojos registrados hoy</p>';
+                return;
+            }
+
+            recojosList.innerHTML = recojosHoy.reverse().map(recojo => `
+                <div class="recojo-item">
+                    <div class="recojo-header">
+                        <h3>${recojo.id}</h3>
+                        <span class="status-badge registrado">Registrado</span>
+                    </div>
+                    <p><strong>DNI:</strong> ${recojo.dni}</p>
+                    ${recojo.codigo ? `<p><strong>Código:</strong> ${recojo.codigo}</p>` : ''}
+                    <p><strong>Descripción:</strong> ${recojo.descripcion}</p>
+                    <p><strong>Peso:</strong> ${recojo.peso} kg | <strong>Tarifa:</strong> S/ ${recojo.tarifa}</p>
+                    <p class="recojo-time">${new Date(recojo.fechaRecojo).toLocaleTimeString('es-PE')}</p>
+                </div>
+            `).join('');
+        }
+
         // Cargar usuarios
         function cargarUsuarios() {
             const users = JSON.parse(localStorage.getItem('shalomUsers') || '[]');
@@ -500,7 +626,9 @@
                 document.querySelectorAll('.menu-link').forEach(l => l.classList.remove('active'));
                 this.classList.add('active');
 
-                if (view === 'envios') {
+                if (view === 'recojo') {
+                    cargarRecojosDelDia();
+                } else if (view === 'envios') {
                     cargarTodosEnviosAdmin();
                 } else if (view === 'usuarios') {
                     cargarUsuarios();
