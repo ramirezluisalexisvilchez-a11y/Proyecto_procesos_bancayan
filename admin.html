@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel Administrador - Shalom Envíos</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <div class="logo">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="truck-icon">
+                    <path d="M14 19H9m-5-7h12a2 2 0 0 1 2 2v7a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1v-7a2 2 0 0 1 2-2z"></path>
+                    <path d="M9 14V9a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v5"></path>
+                    <circle cx="6.5" cy="19.5" r="1.5"></circle>
+                    <circle cx="17.5" cy="19.5" r="1.5"></circle>
+                    <path d="M2 12h7"></path>
+                </svg>
+            </div>
+            <span class="logo-text">Shalom - Panel Admin</span>
+            <ul class="nav-menu">
+                <li><a href="index.html">Inicio</a></li>
+                <li id="user-info-nav">Administrador</li>
+                <li><a href="#" onclick="cerrarSesion(); return false;" class="logout-btn">🚪 Cerrar Sesión</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="dashboard-sidebar">
+            <ul class="sidebar-menu">
+                <li><a href="#" class="menu-link active" data-view="inicio">📊 Inicio</a></li>
+                <li><a href="#" class="menu-link" data-view="envios">📦 Todos los Envíos</a></li>
+                <li><a href="#" class="menu-link" data-view="usuarios">👥 Usuarios</a></li>
+                <li><a href="#" class="menu-link" data-view="estadisticas">📈 Estadísticas</a></li>
+                <li><a href="#" class="menu-link" data-view="configuracion">⚙️ Configuración</a></li>
+            </ul>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="dashboard-main">
+            <!-- Vista: Inicio -->
+            <div id="vista-inicio" class="dashboard-view active">
+                <div class="view-header">
+                    <h1>Panel de Administración</h1>
+                    <p>Gestión completa del sistema Shalom Envíos</p>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <h3>📦</h3>
+                        <p class="stat-value" id="total-envios-admin">0</p>
+                        <p class="stat-label">Envíos Totales</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>⏳</h3>
+                        <p class="stat-value" id="envios-pendientes-admin">0</p>
+                        <p class="stat-label">Pendientes</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>✅</h3>
+                        <p class="stat-value" id="envios-entregados-admin">0</p>
+                        <p class="stat-label">Entregados</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>👥</h3>
+                        <p class="stat-value" id="total-usuarios-admin">0</p>
+                        <p class="stat-label">Usuarios</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>💰</h3>
+                        <p class="stat-value" id="ingresos-total-admin">S/ 0.00</p>
+                        <p class="stat-label">Ingresos Totales</p>
+                    </div>
+                </div>
+
+                <div class="admin-alert alert alert-info">
+                    ℹ️ <strong>Credenciales de administrador:</strong><br>
+                    Email: <code>admin@shalom.com</code><br>
+                    Contraseña: <code>admin123</code>
+                </div>
+            </div>
+
+            <!-- Vista: Todos los Envíos -->
+            <div id="vista-envios" class="dashboard-view">
+                <div class="view-header">
+                    <h1>Gestión de Envíos</h1>
+                    <p>Ver y actualizar estado de todos los envíos</p>
+                </div>
+
+                <div class="filter-controls">
+                    <select id="filter-estado">
+                        <option value="">Filtrar por estado...</option>
+                        <option value="Pendiente">Pendiente</option>
+                        <option value="En Tránsito">En Tránsito</option>
+                        <option value="Entregado">Entregado</option>
+                        <option value="Cancelado">Cancelado</option>
+                    </select>
+                    <input type="text" id="search-envio" placeholder="Buscar por ID o destinatario...">
+                </div>
+
+                <div id="envios-admin-list" class="shipment-list">
+                    <p class="empty-state">No hay envíos registrados</p>
+                </div>
+            </div>
+
+            <!-- Vista: Usuarios -->
+            <div id="vista-usuarios" class="dashboard-view">
+                <div class="view-header">
+                    <h1>Gestión de Usuarios</h1>
+                    <p>Ver todos los usuarios registrados</p>
+                </div>
+
+                <div id="usuarios-list" class="users-list">
+                    <p class="empty-state">No hay usuarios registrados</p>
+                </div>
+            </div>
+
+            <!-- Vista: Estadísticas -->
+            <div id="vista-estadisticas" class="dashboard-view">
+                <div class="view-header">
+                    <h1>Estadísticas del Sistema</h1>
+                    <p>Análisis y reportes</p>
+                </div>
+
+                <div class="stats-container">
+                    <div class="stat-box">
+                        <h3>Estado de Envíos</h3>
+                        <div id="chart-estados">
+                            <p>Cargando...</p>
+                        </div>
+                    </div>
+
+                    <div class="stat-box">
+                        <h3>Envíos por Usuario</h3>
+                        <div id="chart-usuarios">
+                            <p>Cargando...</p>
+                        </div>
+                    </div>
+
+                    <div class="stat-box">
+                        <h3>Peso Promedio de Envíos</h3>
+                        <p id="peso-promedio">0 kg</p>
+                    </div>
+
+                    <div class="stat-box">
+                        <h3>Tarifa Promedio</h3>
+                        <p id="tarifa-promedio">S/ 0.00</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Vista: Configuración -->
+            <div id="vista-configuracion" class="dashboard-view">
+                <div class="view-header">
+                    <h1>Configuración del Sistema</h1>
+                    <p>Configurar parámetros de la aplicación</p>
+                </div>
+
+                <div class="config-form">
+                    <h3>Tarifas de Envío</h3>
+                    <div class="form-group">
+                        <label for="tarifa-base">Tarifa Base (S/)</label>
+                        <input type="number" id="tarifa-base" value="15" step="0.01">
+                    </div>
+                    <div class="form-group">
+                        <label for="costo-kg">Costo por Kg (S/)</label>
+                        <input type="number" id="costo-kg" value="3.5" step="0.01">
+                    </div>
+                    <button class="btn btn-primary" onclick="guardarTarifas()">Guardar Tarifas</button>
+
+                    <hr style="margin: 30px 0;">
+
+                    <h3>Gestión de Datos</h3>
+                    <button class="btn btn-danger" onclick="limpiarTodaslas Datos()">Limpiar Todos los Datos</button>
+                    <p class="text-small">⚠️ Esta acción es irreversible</p>
+
+                    <hr style="margin: 30px 0;">
+
+                    <h3>Información del Sistema</h3>
+                    <p><strong>Versión:</strong> 1.0.0</p>
+                    <p><strong>Última actualización:</strong> <span id="update-date">21/01/2026</span></p>
+                    <p><strong>Tipo de almacenamiento:</strong> localStorage</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="usuario-auth.js"></script>
+    <script>
+        // Verificar autenticación de admin
+        function verificarAdmin() {
+            const currentUser = JSON.parse(localStorage.getItem('shalomCurrentUser'));
+            if (!currentUser || currentUser.rol !== 'administrador') {
+                alert('⛔ Acceso denegado. Solo administradores.');
+                window.location.href = 'index.html';
+            } else {
+                document.getElementById('user-info-nav').textContent = '👤 ' + currentUser.nombre;
+            }
+        }
+
+        // Cerrar sesión
+        function cerrarSesion() {
+            localStorage.removeItem('shalomCurrentUser');
+            window.location.href = 'index.html';
+        }
+
+        // Cargar estadísticas del admin
+        function cargarEstadisticasAdmin() {
+            const envios = JSON.parse(localStorage.getItem('shalomEnvios') || '[]');
+            const users = JSON.parse(localStorage.getItem('shalomUsers') || '[]');
+            
+            const totalEnvios = envios.length;
+            const pendientes = envios.filter(e => e.estado === 'Pendiente').length;
+            const entregados = envios.filter(e => e.estado === 'Entregado').length;
+            const totalUsuarios = users.length;
+            const ingresosTotal = envios.reduce((sum, e) => sum + (parseFloat(e.tarifa) || 0), 0);
+
+            document.getElementById('total-envios-admin').textContent = totalEnvios;
+            document.getElementById('envios-pendientes-admin').textContent = pendientes;
+            document.getElementById('envios-entregados-admin').textContent = entregados;
+            document.getElementById('total-usuarios-admin').textContent = totalUsuarios;
+            document.getElementById('ingresos-total-admin').textContent = 'S/ ' + ingresosTotal.toFixed(2);
+        }
+
+        // Cargar todos los envíos
+        function cargarTodosEnviosAdmin() {
+            const envios = JSON.parse(localStorage.getItem('shalomEnvios') || '[]');
+            const enviosList = document.getElementById('envios-admin-list');
+
+            if (envios.length === 0) {
+                enviosList.innerHTML = '<p class="empty-state">No hay envíos registrados</p>';
+                return;
+            }
+
+            enviosList.innerHTML = envios.reverse().map(envio => `
+                <div class="shipment-item admin-item">
+                    <div class="shipment-header">
+                        <h3>${envio.id}</h3>
+                        <select class="status-select" data-envio-id="${envio.id}" onchange="actualizarEstado(this)">
+                            <option value="Pendiente" ${envio.estado === 'Pendiente' ? 'selected' : ''}>Pendiente</option>
+                            <option value="En Tránsito" ${envio.estado === 'En Tránsito' ? 'selected' : ''}>En Tránsito</option>
+                            <option value="Entregado" ${envio.estado === 'Entregado' ? 'selected' : ''}>Entregado</option>
+                            <option value="Cancelado" ${envio.estado === 'Cancelado' ? 'selected' : ''}>Cancelado</option>
+                        </select>
+                    </div>
+                    <p><strong>Usuario:</strong> ${envio.usuario}</p>
+                    <p><strong>Destinatario:</strong> ${envio.destinatario}</p>
+                    <p><strong>Teléfono:</strong> ${envio.telefono}</p>
+                    <p><strong>Dirección:</strong> ${envio.direccion}, ${envio.distrito}</p>
+                    <p><strong>Descripción:</strong> ${envio.descripcion}</p>
+                    <p><strong>Peso:</strong> ${envio.peso} kg | <strong>Tarifa:</strong> S/ ${parseFloat(envio.tarifa).toFixed(2)}</p>
+                    <p class="shipment-date">${new Date(envio.fechaCreacion).toLocaleDateString('es-PE')}</p>
+                </div>
+            `).join('');
+        }
+
+        // Actualizar estado de envío
+        function actualizarEstado(select) {
+            const envioId = select.getAttribute('data-envio-id');
+            const nuevoEstado = select.value;
+            const envios = JSON.parse(localStorage.getItem('shalomEnvios') || '[]');
+            
+            const envio = envios.find(e => e.id === envioId);
+            if (envio) {
+                envio.estado = nuevoEstado;
+                localStorage.setItem('shalomEnvios', JSON.stringify(envios));
+                alert('✅ Estado actualizado a: ' + nuevoEstado);
+                cargarEstadisticasAdmin();
+            }
+        }
+
+        // Cargar usuarios
+        function cargarUsuarios() {
+            const users = JSON.parse(localStorage.getItem('shalomUsers') || '[]');
+            const usuariosList = document.getElementById('usuarios-list');
+
+            if (users.length === 0) {
+                usuariosList.innerHTML = '<p class="empty-state">No hay usuarios registrados</p>';
+                return;
+            }
+
+            usuariosList.innerHTML = users.map(user => `
+                <div class="user-item">
+                    <div class="user-info">
+                        <h3>${user.nombre}</h3>
+                        <p><strong>Email:</strong> ${user.email}</p>
+                        <p><strong>Teléfono:</strong> ${user.telefono}</p>
+                        <p><strong>Rol:</strong> <span class="badge badge-${user.rol === 'administrador' ? 'danger' : 'info'}">${user.rol}</span></p>
+                        <p><strong>Registrado:</strong> ${user.fechaRegistro}</p>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Generar estadísticas
+        function generarEstadisticas() {
+            const envios = JSON.parse(localStorage.getItem('shalomEnvios') || '[]');
+            
+            // Conteo por estado
+            const estados = {};
+            envios.forEach(e => {
+                estados[e.estado] = (estados[e.estado] || 0) + 1;
+            });
+
+            const chartEstados = document.getElementById('chart-estados');
+            chartEstados.innerHTML = Object.entries(estados).map(([estado, cantidad]) => 
+                `<div class="chart-item">
+                    <span>${estado}:</span>
+                    <strong>${cantidad} envíos</strong>
+                </div>`
+            ).join('');
+
+            // Promedio de peso y tarifa
+            const pesoPromedio = envios.length > 0 ? (envios.reduce((sum, e) => sum + e.peso, 0) / envios.length).toFixed(2) : 0;
+            const tarifaPromedio = envios.length > 0 ? (envios.reduce((sum, e) => sum + parseFloat(e.tarifa), 0) / envios.length).toFixed(2) : 0;
+
+            document.getElementById('peso-promedio').textContent = pesoPromedio + ' kg';
+            document.getElementById('tarifa-promedio').textContent = 'S/ ' + tarifaPromedio;
+        }
+
+        // Guardar tarifas
+        function guardarTarifas() {
+            const tarifaBase = parseFloat(document.getElementById('tarifa-base').value) || 15;
+            const costoKg = parseFloat(document.getElementById('costo-kg').value) || 3.5;
+            
+            localStorage.setItem('tarifaBase', tarifaBase);
+            localStorage.setItem('costoKg', costoKg);
+            
+            alert('✅ Tarifas guardadas correctamente');
+        }
+
+        // Limpiar todos los datos
+        function limpiarTodolosDatos() {
+            if (confirm('⚠️ ¿Estás seguro? Esta acción eliminarád TODOS los datos. No se puede deshacer.')) {
+                localStorage.removeItem('shalomEnvios');
+                localStorage.removeItem('shalomUsers');
+                localStorage.removeItem('shalomCurrentUser');
+                alert('✅ Todos los datos han sido eliminados');
+                location.reload();
+            }
+        }
+
+        // Cambiar vista
+        document.querySelectorAll('.menu-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const view = this.getAttribute('data-view');
+                
+                document.querySelectorAll('.dashboard-view').forEach(v => v.classList.remove('active'));
+                document.getElementById('vista-' + view).classList.add('active');
+                
+                document.querySelectorAll('.menu-link').forEach(l => l.classList.remove('active'));
+                this.classList.add('active');
+
+                if (view === 'envios') {
+                    cargarTodosEnviosAdmin();
+                } else if (view === 'usuarios') {
+                    cargarUsuarios();
+                } else if (view === 'estadisticas') {
+                    generarEstadisticas();
+                }
+            });
+        });
+
+        // Hamburger menu
+        document.querySelector('.hamburger').addEventListener('click', function() {
+            document.querySelector('.nav-menu').classList.toggle('active');
+        });
+
+        // Inicializar
+        window.addEventListener('load', function() {
+            verificarAdmin();
+            cargarEstadisticasAdmin();
+        });
+    </script>
+</body>
+</html>

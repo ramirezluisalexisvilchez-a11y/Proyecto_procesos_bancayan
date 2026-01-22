@@ -1,5 +1,29 @@
 // Auth JavaScript - usuario.html
 
+// Crear usuario admin al cargar si no existe
+function inicializarAdmin() {
+    let users = JSON.parse(localStorage.getItem('shalomUsers')) || [];
+    
+    // Si no existe usuario admin, crearlo
+    if (!users.find(u => u.email === 'admin@shalom.com')) {
+        const adminUser = {
+            id: 'admin-001',
+            nombre: 'Administrador',
+            email: 'admin@shalom.com',
+            password: 'admin123',
+            telefono: '999999999',
+            rol: 'administrador',
+            fechaRegistro: new Date().toLocaleDateString()
+        };
+        users.push(adminUser);
+        localStorage.setItem('shalomUsers', JSON.stringify(users));
+        console.log('✅ Usuario admin creado: admin@shalom.com / admin123');
+    }
+}
+
+// Ejecutar al cargar
+window.addEventListener('load', inicializarAdmin);
+
 // Switch between Login and Registro tabs
 document.querySelectorAll('.tab-btn').forEach(btn => {
     btn.addEventListener('click', function() {
@@ -38,7 +62,13 @@ document.getElementById('loginForm').addEventListener('submit', function(e) {
     if (user) {
         localStorage.setItem('shalomCurrentUser', JSON.stringify(user));
         alert('¡Bienvenido ' + user.nombre + '!');
-        window.location.href = 'dashboard.html';
+        
+        // Redirigir según rol
+        if (user.rol === 'administrador') {
+            window.location.href = 'admin.html';
+        } else {
+            window.location.href = 'dashboard.html';
+        }
     } else {
         alert('Correo o contraseña incorrectos');
     }
@@ -69,6 +99,7 @@ document.getElementById('registroForm').addEventListener('submit', function(e) {
         email,
         password,
         telefono,
+        rol: 'usuario',
         fechaRegistro: new Date().toLocaleDateString()
     };
     
