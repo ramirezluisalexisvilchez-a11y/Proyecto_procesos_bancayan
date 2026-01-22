@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Shalom Envíos</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <div class="logo">
+                <svg width="30" height="30" viewBox="0 0 30 30" fill="none">
+                    <rect x="2" y="8" width="14" height="10" fill="#ff6b35" stroke="#004e89" stroke-width="1.5"/>
+                    <circle cx="5" cy="20" r="2" fill="#004e89"/>
+                    <circle cx="13" cy="20" r="2" fill="#004e89"/>
+                    <polygon points="14,8 20,8 18,2 16,2" fill="#f77f00"/>
+                    <path d="M 18 12 L 26 12 L 24 18 L 20 18 Z" fill="#ff6b35" stroke="#004e89" stroke-width="1.5"/>
+                    <circle cx="22" cy="20" r="2" fill="#004e89"/>
+                </svg>
+                <span>Shalom Envíos</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="index.html#procesos">Procesos</a></li>
+                <li><a href="index.html#precios">Precios</a></li>
+                <li><a href="usuario.html">Ingresar</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="dashboard-sidebar">
+            <ul class="sidebar-menu">
+                <li><a href="#" class="menu-link active" data-view="inicio">📊 Inicio</a></li>
+                <li><a href="#" class="menu-link" data-view="crear-envio">📝 Crear Envío</a></li>
+                <li><a href="#" class="menu-link" data-view="mis-envios">📦 Mis Envíos</a></li>
+                <li><a href="#" class="menu-link" data-view="rastrear">🔍 Rastrear</a></li>
+                <li><a href="#" class="menu-link" data-view="perfil">👤 Perfil</a></li>
+            </ul>
+            <div class="sidebar-footer">
+                <p>🔒 Acceso Compartido</p>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="dashboard-main">
+            <!-- Vista: Inicio -->
+            <div id="vista-inicio" class="dashboard-view active">
+                <div class="view-header">
+                    <h1>Panel de Control</h1>
+                    <p id="welcome-message">Bienvenido a tu panel de Shalom Envíos</p>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <h3>📦</h3>
+                        <p class="stat-value" id="total-envios">0</p>
+                        <p class="stat-label">Envíos Totales</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>⏳</h3>
+                        <p class="stat-value" id="envios-pendientes">0</p>
+                        <p class="stat-label">Pendientes</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>✅</h3>
+                        <p class="stat-value" id="envios-entregados">0</p>
+                        <p class="stat-label">Entregados</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>💰</h3>
+                        <p class="stat-value" id="gasto-total">S/ 0.00</p>
+                        <p class="stat-label">Gasto Total</p>
+                    </div>
+                </div>
+
+                <div class="recent-shipments">
+                    <h2>Envíos Recientes</h2>
+                    <div id="recent-list" class="shipment-list">
+                        <p class="empty-state">No hay envíos registrados</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Vista: Crear Envío -->
+            <div id="vista-crear-envio" class="dashboard-view">
+                <div class="view-header">
+                    <h1>Crear Nuevo Envío</h1>
+                    <p>Completa el formulario para registrar un nuevo envío</p>
+                </div>
+
+                <form id="form-envio" class="envio-form">
+                    <div class="form-group">
+                        <label for="destinatario">Destinatario *</label>
+                        <input type="text" id="destinatario" name="destinatario" placeholder="Nombre completo" required>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="telefono">Teléfono *</label>
+                            <input type="tel" id="telefono" name="telefono" placeholder="987654321" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email-dest">Email</label>
+                            <input type="email" id="email-dest" name="email-dest" placeholder="correo@ejemplo.com">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="direccion">Dirección de Entrega *</label>
+                        <input type="text" id="direccion" name="direccion" placeholder="Calle, número, distrito" required>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="ciudad">Ciudad *</label>
+                            <input type="text" id="ciudad" name="ciudad" placeholder="Lima" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="distrito">Distrito *</label>
+                            <input type="text" id="distrito" name="distrito" placeholder="San Isidro" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="descripcion">Descripción del Envío *</label>
+                        <textarea id="descripcion" name="descripcion" placeholder="Describa qué contiene el paquete" required></textarea>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="peso">Peso (kg) *</label>
+                            <input type="number" id="peso" name="peso" min="0.1" step="0.1" placeholder="Ej: 2.5" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="tarifa">Tarifa Calculada</label>
+                            <input type="text" id="tarifa" name="tarifa" placeholder="S/ 0.00" readonly>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Registrar Envío</button>
+                </form>
+            </div>
+
+            <!-- Vista: Mis Envíos -->
+            <div id="vista-mis-envios" class="dashboard-view">
+                <div class="view-header">
+                    <h1>Mis Envíos</h1>
+                    <p>Historial completo de todos tus envíos</p>
+                </div>
+
+                <div id="envios-list" class="shipment-list">
+                    <p class="empty-state">No hay envíos registrados</p>
+                </div>
+            </div>
+
+            <!-- Vista: Rastrear -->
+            <div id="vista-rastrear" class="dashboard-view">
+                <div class="view-header">
+                    <h1>Rastrear Envío</h1>
+                    <p>Busca un envío por su número de seguimiento</p>
+                </div>
+
+                <div class="tracking-search">
+                    <input type="text" id="tracking-input" placeholder="Ingresa el número de envío (Ej: ENV-001)">
+                    <button class="btn btn-primary" id="search-btn">Buscar</button>
+                </div>
+
+                <div id="tracking-result"></div>
+            </div>
+
+            <!-- Vista: Perfil -->
+            <div id="vista-perfil" class="dashboard-view">
+                <div class="view-header">
+                    <h1>Mi Perfil</h1>
+                    <p>Información de tu cuenta (Acceso Compartido)</p>
+                </div>
+
+                <div class="profile-card">
+                    <div class="profile-info">
+                        <p><strong>Nombre:</strong> <span id="profile-name">Usuario Público</span></p>
+                        <p><strong>Email:</strong> <span id="profile-email">acceso@publico.com</span></p>
+                        <p><strong>Estado:</strong> <span class="badge badge-success">Acceso Compartido</span></p>
+                    </div>
+                </div>
+
+                <div class="alert alert-info">
+                    ℹ️ Este es un acceso compartido. Los datos no requieren autenticación.
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Dashboard público - sin autenticación
+        const DEMO_USER = {
+            id: 'public',
+            nombre: 'Usuario Público',
+            email: 'acceso@publico.com',
+            ciudad: 'Lima'
+        };
+
+        // Inicializar localStorage con datos de demostración si no existen
+        function initializePublicDashboard() {
+            if (!localStorage.getItem('shalomEnvios')) {
+                localStorage.setItem('shalomEnvios', JSON.stringify([]));
+            }
+        }
+
+        // Cargar estadísticas
+        function cargarEstadisticas() {
+            const envios = JSON.parse(localStorage.getItem('shalomEnvios') || '[]');
+            
+            const totalEnvios = envios.length;
+            const pendientes = envios.filter(e => e.estado === 'Pendiente').length;
+            const entregados = envios.filter(e => e.estado === 'Entregado').length;
+            const gastoTotal = envios.reduce((sum, e) => sum + (parseFloat(e.tarifa) || 0), 0);
+
+            document.getElementById('total-envios').textContent = totalEnvios;
+            document.getElementById('envios-pendientes').textContent = pendientes;
+            document.getElementById('envios-entregados').textContent = entregados;
+            document.getElementById('gasto-total').textContent = 'S/ ' + gastoTotal.toFixed(2);
+
+            cargarEnviosRecientes(envios);
+        }
+
+        // Cargar envíos recientes
+        function cargarEnviosRecientes(envios) {
+            const recentList = document.getElementById('recent-list');
+            const recentEnvios = envios.slice(-5).reverse();
+
+            if (recentEnvios.length === 0) {
+                recentList.innerHTML = '<p class="empty-state">No hay envíos registrados</p>';
+                return;
+            }
+
+            recentList.innerHTML = recentEnvios.map(envio => `
+                <div class="shipment-item">
+                    <div class="shipment-header">
+                        <h3>${envio.id}</h3>
+                        <span class="status-badge ${envio.estado.toLowerCase()}">${envio.estado}</span>
+                    </div>
+                    <p><strong>Para:</strong> ${envio.destinatario}</p>
+                    <p><strong>Descripción:</strong> ${envio.descripcion}</p>
+                    <p><strong>Tarifa:</strong> S/ ${parseFloat(envio.tarifa).toFixed(2)}</p>
+                </div>
+            `).join('');
+        }
+
+        // Calcular tarifa basada en peso
+        function calcularTarifa(peso) {
+            const tarifaBase = 15;
+            const costoKg = 3.5;
+            return (tarifaBase + (peso * costoKg)).toFixed(2);
+        }
+
+        // Enviar formulario de envío
+        document.getElementById('form-envio').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const nuevoEnvio = {
+                id: 'ENV-' + String(Date.now()).slice(-6),
+                usuario: DEMO_USER.nombre,
+                destinatario: document.getElementById('destinatario').value,
+                telefono: document.getElementById('telefono').value,
+                email: document.getElementById('email-dest').value,
+                direccion: document.getElementById('direccion').value,
+                ciudad: document.getElementById('ciudad').value,
+                distrito: document.getElementById('distrito').value,
+                descripcion: document.getElementById('descripcion').value,
+                peso: parseFloat(document.getElementById('peso').value),
+                tarifa: document.getElementById('tarifa').value,
+                estado: 'Pendiente',
+                fechaCreacion: new Date().toISOString()
+            };
+
+            let envios = JSON.parse(localStorage.getItem('shalomEnvios') || '[]');
+            envios.push(nuevoEnvio);
+            localStorage.setItem('shalomEnvios', JSON.stringify(envios));
+
+            alert('✅ Envío registrado exitosamente!\nNúmero de seguimiento: ' + nuevoEnvio.id);
+            this.reset();
+            document.getElementById('tarifa').value = '';
+            cargarEstadisticas();
+        });
+
+        // Calcular tarifa en tiempo real
+        document.getElementById('peso').addEventListener('input', function() {
+            const peso = parseFloat(this.value) || 0;
+            if (peso > 0) {
+                document.getElementById('tarifa').value = 'S/ ' + calcularTarifa(peso);
+            }
+        });
+
+        // Cambiar vista
+        document.querySelectorAll('.menu-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const view = this.getAttribute('data-view');
+                
+                document.querySelectorAll('.dashboard-view').forEach(v => v.classList.remove('active'));
+                document.getElementById('vista-' + view).classList.add('active');
+                
+                document.querySelectorAll('.menu-link').forEach(l => l.classList.remove('active'));
+                this.classList.add('active');
+
+                if (view === 'mis-envios') {
+                    cargarTodosEnvios();
+                }
+            });
+        });
+
+        // Cargar todos los envíos
+        function cargarTodosEnvios() {
+            const envios = JSON.parse(localStorage.getItem('shalomEnvios') || '[]');
+            const enviosList = document.getElementById('envios-list');
+
+            if (envios.length === 0) {
+                enviosList.innerHTML = '<p class="empty-state">No hay envíos registrados</p>';
+                return;
+            }
+
+            enviosList.innerHTML = envios.reverse().map(envio => `
+                <div class="shipment-item">
+                    <div class="shipment-header">
+                        <h3>${envio.id}</h3>
+                        <span class="status-badge ${envio.estado.toLowerCase()}">${envio.estado}</span>
+                    </div>
+                    <p><strong>Para:</strong> ${envio.destinatario}</p>
+                    <p><strong>Teléfono:</strong> ${envio.telefono}</p>
+                    <p><strong>Dirección:</strong> ${envio.direccion}, ${envio.distrito}</p>
+                    <p><strong>Descripción:</strong> ${envio.descripcion}</p>
+                    <p><strong>Peso:</strong> ${envio.peso} kg | <strong>Tarifa:</strong> S/ ${parseFloat(envio.tarifa).toFixed(2)}</p>
+                    <p class="shipment-date">${new Date(envio.fechaCreacion).toLocaleDateString('es-PE')}</p>
+                </div>
+            `).join('');
+        }
+
+        // Buscar envío
+        document.getElementById('search-btn').addEventListener('click', function() {
+            const trackingNumber = document.getElementById('tracking-input').value.trim().toUpperCase();
+            const envios = JSON.parse(localStorage.getItem('shalomEnvios') || '[]');
+            const envio = envios.find(e => e.id === trackingNumber);
+
+            const result = document.getElementById('tracking-result');
+            if (envio) {
+                result.innerHTML = `
+                    <div class="tracking-card">
+                        <h2>Envío Encontrado: ${envio.id}</h2>
+                        <div class="tracking-info">
+                            <p><strong>Estado:</strong> <span class="badge badge-${envio.estado.toLowerCase()}">${envio.estado}</span></p>
+                            <p><strong>Destinatario:</strong> ${envio.destinatario}</p>
+                            <p><strong>Dirección:</strong> ${envio.direccion}, ${envio.distrito}, ${envio.ciudad}</p>
+                            <p><strong>Descripción:</strong> ${envio.descripcion}</p>
+                            <p><strong>Peso:</strong> ${envio.peso} kg</p>
+                            <p><strong>Tarifa:</strong> S/ ${parseFloat(envio.tarifa).toFixed(2)}</p>
+                            <p><strong>Fecha:</strong> ${new Date(envio.fechaCreacion).toLocaleDateString('es-PE')}</p>
+                        </div>
+                    </div>
+                `;
+            } else {
+                result.innerHTML = '<p class="empty-state">Envío no encontrado. Verifica el número de seguimiento.</p>';
+            }
+        });
+
+        // Hamburger menu
+        document.querySelector('.hamburger').addEventListener('click', function() {
+            document.querySelector('.nav-menu').classList.toggle('active');
+        });
+
+        // Inicializar
+        window.addEventListener('load', function() {
+            initializePublicDashboard();
+            cargarEstadisticas();
+        });
+    </script>
+</body>
+</html>
