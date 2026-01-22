@@ -15,14 +15,6 @@ if (hamburger) {
         navMenu.style.zIndex = '99';
         navMenu.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.1)';
     });
-
-    // Close menu when a link is clicked
-    const navLinks = document.querySelectorAll('.nav-menu a');
-    navLinks.forEach(link => {
-        link.addEventListener('click', () => {
-            navMenu.style.display = 'none';
-        });
-    });
 }
 
 // Smooth scroll for navigation links
