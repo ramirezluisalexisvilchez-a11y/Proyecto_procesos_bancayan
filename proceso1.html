@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proceso 1: Atención al Cliente - Shalom Envíos</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navegación -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <div class="logo">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="truck-icon">
+                    <path d="M14 19H9m-5-7h12a2 2 0 0 1 2 2v7a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1v-7a2 2 0 0 1 2-2z"></path>
+                    <path d="M9 14V9a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v5"></path>
+                    <circle cx="6.5" cy="19.5" r="1.5"></circle>
+                    <circle cx="17.5" cy="19.5" r="1.5"></circle>
+                    <path d="M2 12h7"></path>
+                </svg>
+            </div>
+            <span class="logo-text">Shalom</span>
+            <ul class="nav-menu">
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="index.html#procesos">Procesos</a></li>
+                <li><a href="index.html#tarifas">Tarifas</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+        <a href="index.html">Inicio</a> > Proceso 1: Atención al Cliente
+    </div>
+
+    <!-- Proceso 1 -->
+    <section class="process-page">
+        <div class="process-header">
+            <h1>Proceso 1: Atención al Cliente</h1>
+            <p>Primera etapa: Llegada del paquete a la sucursal</p>
+        </div>
+
+        <div class="process-content">
+            <div class="process-actor-badge">👤 Cliente / Sucursal</div>
+            
+            <div class="bpmn-flow-page">
+                <div class="flow-step-page">
+                    <div class="step-number-large">1</div>
+                    <div class="step-content">
+                        <h3>Entrega de paquete a sucursal de atención</h3>
+                        <p>El cliente llega a una de nuestras sucursales con su paquete para ser enviado. El paquete ingresa al sistema de atención al cliente.</p>
+                        <div class="step-details">
+                            <strong>Responsable:</strong> Cliente / Personal de sucursal<br>
+                            <strong>Duración:</strong> Inmediata<br>
+                            <strong>Documentos:</strong> Paquete físico
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flow-divider">⬇️</div>
+
+                <div class="flow-step-page">
+                    <div class="step-number-large">2</div>
+                    <div class="step-content">
+                        <h3>Recibe el paquete</h3>
+                        <p>El personal de la sucursal recibe el paquete y realiza una inspección visual inicial para determinar su estado físico.</p>
+                        <div class="step-details">
+                            <strong>Responsable:</strong> Recepcionista<br>
+                            <strong>Duración:</strong> 2-3 minutos<br>
+                            <strong>Verificaciones:</strong> Estado físico, tamaño aproximado, integridad
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flow-divider">⬇️</div>
+
+                <div class="flow-step-page decision-page">
+                    <div class="step-number-large">?</div>
+                    <div class="step-content">
+                        <h3>¿Cuenta con una ruta disponible?</h3>
+                        <p>Se verifica si existe una ruta de envío disponible para el destino solicitado.</p>
+                        <div class="step-details">
+                            <strong>Verificación:</strong> Disponibilidad de rutas<br>
+                            <strong>Sistema:</strong> Consulta de disponibilidad
+                        </div>
+                    </div>
+                </div>
+
+                <div class="decision-paths">
+                    <div class="path-yes">
+                        <strong style="color: #28a745;">✓ SÍ - Procede al Proceso 2</strong>
+                        <p>Si hay ruta disponible, el paquete avanza a la etapa de recepción formal</p>
+                    </div>
+                    <div class="path-no">
+                        <strong style="color: #dc3545;">✗ NO - Informar cliente</strong>
+                        <p>Si no hay ruta disponible, se informa al cliente sobre otras opciones</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="process-summary">
+                <h3>Resumen del Proceso 1</h3>
+                <ul>
+                    <li>El paquete llega a la sucursal</li>
+                    <li>Se realiza una inspección inicial</li>
+                    <li>Se verifica disponibilidad de rutas</li>
+                    <li>Si es posible, avanza al siguiente proceso</li>
+                </ul>
+            </div>
+
+            <div class="navigation-buttons">
+                <a href="index.html" class="btn-secondary">← Volver a Procesos</a>
+                <a href="proceso2.html" class="btn-primary">Proceso 2 →</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-section">
+                <h4>Shalom</h4>
+                <ul>
+                    <li><a href="#">Servicios</a></li>
+                    <li><a href="#">Envía</a></li>
+                    <li><a href="#">Shalom Store</a></li>
+                    <li><a href="#">Ayuda</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Información</h4>
+                <ul>
+                    <li><a href="#">Tarifas</a></li>
+                    <li><a href="#">Agencias</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Contacto</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Redes Sociales</h4>
+                <div class="social-links">
+                    <a href="#">f</a>
+                    <a href="#">📷</a>
+                    <a href="#">▶️</a>
+                    <a href="#">🎵</a>
+                    <a href="#">💬</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Envíos Shalom. Todos los derechos reservados.</p>
+            <div class="footer-links">
+                <a href="#">Política de privacidad</a>
+                <a href="#">Términos de servicio</a>
+                <a href="#">Política de cookies</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
