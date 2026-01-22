@@ -188,89 +188,171 @@
         </div>
     </section>
 
-    <!-- Proceso de Envío Section -->
-    <section class="process-flow">
-        <h2>Cómo funciona nuestro proceso</h2>
-        <div class="process-diagram">
-            <div class="process-step step-1">
-                <div class="step-icon">🎯</div>
-                <h3>1. Cliente solicita envío</h3>
-                <p>Ingresa datos del paquete y destinatario</p>
-            </div>
-            <div class="process-arrow">→</div>
-            
-            <div class="process-step step-2">
-                <div class="step-icon">📋</div>
-                <h3>2. Recepción y validación</h3>
-                <p>Verificamos datos e información del paquete</p>
-            </div>
-            <div class="process-arrow">→</div>
-            
-            <div class="process-step step-3">
-                <div class="step-icon">💰</div>
-                <h3>3. Cálculo de tarifa</h3>
-                <p>Sistema calcula precio automáticamente</p>
-            </div>
-            <div class="process-arrow">→</div>
-            
-            <div class="process-step step-4">
-                <div class="step-icon">✅</div>
-                <h3>4. Confirmación de pago</h3>
-                <p>Cliente acepta costo y realiza pago</p>
+    <!-- PROCESOS BPMN -->
+    
+    <!-- Proceso 1: Atención al Cliente -->
+    <section class="bpmn-process">
+        <h2>Proceso 1: Atención al Cliente</h2>
+        <div class="process-container">
+            <div class="process-actor">Tiene que llegar a sucursal</div>
+            <div class="bpmn-flow">
+                <div class="flow-step">
+                    <div class="step-number">1</div>
+                    <h4>Entrega de paquete a sucursal de atención</h4>
+                </div>
+                <div class="flow-connector">↓</div>
+                <div class="flow-step">
+                    <div class="step-number">2</div>
+                    <h4>Recibe la paquete</h4>
+                </div>
+                <div class="flow-connector">↓</div>
+                <div class="flow-step decision">
+                    <div class="step-number">?</div>
+                    <h4>¿Cuenta con una ruta?</h4>
+                </div>
+                <div class="flow-connector-split">
+                    <div class="yes-path">SÍ →</div>
+                    <div class="no-path">NO ↓</div>
+                </div>
             </div>
         </div>
+    </section>
 
-        <div class="process-diagram" style="margin-top: 3rem;">
-            <div class="process-step step-5">
-                <div class="step-icon">🎁</div>
-                <h3>5. Ingreso al sistema</h3>
-                <p>Paquete entra a nuestro sistema de logística</p>
-            </div>
-            <div class="process-arrow">→</div>
-            
-            <div class="process-step step-6">
-                <div class="step-icon">🚚</div>
-                <h3>6. Recolección y transporte</h3>
-                <p>Camión recolecta y transporta el paquete</p>
-            </div>
-            <div class="process-arrow">→</div>
-            
-            <div class="process-step step-7">
-                <div class="step-icon">📍</div>
-                <h3>7. Rastreo en tiempo real</h3>
-                <p>Cliente puede seguir su envío en vivo</p>
-            </div>
-            <div class="process-arrow">→</div>
-            
-            <div class="process-step step-8">
-                <div class="step-icon">🏁</div>
-                <h3>8. Entrega</h3>
-                <p>Paquete llega al destinatario</p>
+    <!-- Proceso 2: Recepción de Envío -->
+    <section class="bpmn-process">
+        <h2>Proceso 2: Recepción de Envío</h2>
+        <div class="process-container">
+            <div class="process-actor">Recepcionista</div>
+            <div class="bpmn-flow">
+                <div class="flow-step">
+                    <div class="step-number">1</div>
+                    <h4>Solicitar DNI / Datos del remitente</h4>
+                </div>
+                <div class="flow-connector">↓</div>
+                <div class="flow-step">
+                    <div class="step-number">2</div>
+                    <h4>Escanear DNI</h4>
+                </div>
+                <div class="flow-connector">↓</div>
+                <div class="flow-step">
+                    <div class="step-number">3</div>
+                    <h4>Solicitar datos del destinatario</h4>
+                </div>
+                <div class="flow-connector">↓</div>
+                <div class="flow-step">
+                    <div class="step-number">4</div>
+                    <h4>Corregir datos manualmente</h4>
+                </div>
+                <div class="flow-connector">↓</div>
+                <div class="flow-step">
+                    <div class="step-number">5</div>
+                    <h4>Tomar foto del paquete</h4>
+                </div>
             </div>
         </div>
+    </section>
 
-        <div class="process-actors">
-            <h3>Actores del proceso</h3>
-            <div class="actors-grid">
-                <div class="actor">
-                    <div class="actor-icon">👤</div>
-                    <h4>Cliente</h4>
-                    <p>Solicita y realiza el envío</p>
+    <!-- Proceso 3: Sistemas de Gestión Logística -->
+    <section class="bpmn-process">
+        <h2>Proceso 3: Sistemas de Gestión Logística</h2>
+        <div class="process-container">
+            <div class="process-actor">Sistema Automático</div>
+            <div class="bpmn-flow">
+                <div class="flow-step">
+                    <div class="step-number">1</div>
+                    <h4>Calcular tarifa automática</h4>
                 </div>
-                <div class="actor">
-                    <div class="actor-icon">👨‍💼</div>
-                    <h4>Atención al cliente</h4>
-                    <p>Valida datos y confirma</p>
+                <div class="flow-connector">↓</div>
+                <div class="flow-step decision">
+                    <div class="step-number">?</div>
+                    <h4>¿Aceptan costo?</h4>
                 </div>
-                <div class="actor">
-                    <div class="actor-icon">🖥️</div>
-                    <h4>Sistema logístico</h4>
-                    <p>Calcula tarifas y enrutamiento</p>
+                <div class="flow-connector-split">
+                    <div class="yes-path">SÍ →</div>
+                    <div class="no-path">NO ↓ RECHAZO</div>
                 </div>
-                <div class="actor">
-                    <div class="actor-icon">🚗</div>
-                    <h4>Personal de envío</h4>
-                    <p>Recoge y entrega paquetes</p>
+                <div class="flow-connector">↓</div>
+                <div class="flow-step">
+                    <div class="step-number">2</div>
+                    <h4>Registrar paquete en sistema</h4>
+                </div>
+                <div class="flow-connector">↓</div>
+                <div class="flow-step">
+                    <div class="step-number">3</div>
+                    <h4>Generar tracking</h4>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Proceso 4: Personal de Envío -->
+    <section class="bpmn-process">
+        <h2>Proceso 4: Personal de Envío</h2>
+        <div class="process-container">
+            <div class="process-actor">Operario de Envío</div>
+            <div class="bpmn-flow">
+                <div class="flow-step">
+                    <div class="step-number">1</div>
+                    <h4>Entregar paquete embalado</h4>
+                </div>
+                <div class="flow-connector">↓</div>
+                <div class="flow-step">
+                    <div class="step-number">2</div>
+                    <h4>Recibe paquete para embalaje</h4>
+                </div>
+                <div class="flow-connector">↓</div>
+                <div class="flow-step">
+                    <div class="step-number">3</div>
+                    <h4>Etiquetar envío</h4>
+                </div>
+                <div class="flow-connector">↓</div>
+                <div class="flow-step">
+                    <div class="step-number">4</div>
+                    <h4>Clasificar por zona</h4>
+                </div>
+                <div class="flow-connector">↓</div>
+                <div class="flow-step">
+                    <div class="step-number">5</div>
+                    <h4>Cargar en vehículo de transporte</h4>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Proceso 5: Seguimiento y Entrega -->
+    <section class="bpmn-process">
+        <h2>Proceso 5: Seguimiento y Entrega</h2>
+        <div class="process-container">
+            <div class="process-actor">Sistema de Rastreo</div>
+            <div class="bpmn-flow">
+                <div class="flow-step">
+                    <div class="step-number">1</div>
+                    <h4>Registrar tracking en sistema</h4>
+                </div>
+                <div class="flow-connector">↓</div>
+                <div class="flow-step">
+                    <div class="step-number">2</div>
+                    <h4>Notificar al cliente (Email/SMS/WhatsApp)</h4>
+                </div>
+                <div class="flow-connector">↓</div>
+                <div class="flow-step">
+                    <div class="step-number">3</div>
+                    <h4>Actualizar estado en tiempo real</h4>
+                </div>
+                <div class="flow-connector">↓</div>
+                <div class="flow-step decision">
+                    <div class="step-number">?</div>
+                    <h4>¿Aceptar entrega?</h4>
+                </div>
+                <div class="flow-connector">↓</div>
+                <div class="flow-step">
+                    <div class="step-number">4</div>
+                    <h4>Registrar pago completado</h4>
+                </div>
+                <div class="flow-connector">↓</div>
+                <div class="flow-step">
+                    <div class="step-number">5</div>
+                    <h4>Generar comprobante entregado</h4>
                 </div>
             </div>
         </div>
