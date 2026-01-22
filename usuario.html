@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Usuario - Shalom Envíos</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navegación -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <div class="logo">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="truck-icon">
+                    <path d="M14 19H9m-5-7h12a2 2 0 0 1 2 2v7a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1v-7a2 2 0 0 1 2-2z"></path>
+                    <path d="M9 14V9a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v5"></path>
+                    <circle cx="6.5" cy="19.5" r="1.5"></circle>
+                    <circle cx="17.5" cy="19.5" r="1.5"></circle>
+                    <path d="M2 12h7"></path>
+                </svg>
+            </div>
+            <span class="logo-text">Shalom</span>
+            <ul class="nav-menu">
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="index.html#tarifas">Tarifas</a></li>
+                <li><a href="usuario.html">Mi Cuenta</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Login/Registro Section -->
+    <section class="auth-section">
+        <div class="auth-container">
+            <div class="auth-box">
+                <h1>Bienvenido a Shalom</h1>
+                <p>Gestiona tus envíos de forma fácil y rápida</p>
+
+                <div class="auth-tabs">
+                    <button class="tab-btn active" data-tab="login">Iniciar Sesión</button>
+                    <button class="tab-btn" data-tab="registro">Crear Cuenta</button>
+                </div>
+
+                <!-- Login Form -->
+                <form id="loginForm" class="auth-form active">
+                    <div class="form-group">
+                        <label for="loginEmail">Correo Electrónico</label>
+                        <input type="email" id="loginEmail" required placeholder="tu@email.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="loginPassword">Contraseña</label>
+                        <input type="password" id="loginPassword" required placeholder="••••••••">
+                    </div>
+                    <button type="submit" class="btn-primary" style="width: 100%;">Iniciar Sesión</button>
+                    <p class="form-help">¿No tienes cuenta? <a href="#" class="switch-tab" data-tab="registro">Regístrate aquí</a></p>
+                </form>
+
+                <!-- Registro Form -->
+                <form id="registroForm" class="auth-form">
+                    <div class="form-group">
+                        <label for="registroNombre">Nombre Completo</label>
+                        <input type="text" id="registroNombre" required placeholder="Juan Pérez">
+                    </div>
+                    <div class="form-group">
+                        <label for="registroEmail">Correo Electrónico</label>
+                        <input type="email" id="registroEmail" required placeholder="tu@email.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="registroPassword">Contraseña</label>
+                        <input type="password" id="registroPassword" required placeholder="••••••••">
+                    </div>
+                    <div class="form-group">
+                        <label for="registroTelefono">Teléfono</label>
+                        <input type="tel" id="registroTelefono" required placeholder="987654321">
+                    </div>
+                    <button type="submit" class="btn-primary" style="width: 100%;">Crear Cuenta</button>
+                    <p class="form-help">¿Ya tienes cuenta? <a href="#" class="switch-tab" data-tab="login">Inicia sesión aquí</a></p>
+                </form>
+            </div>
+
+            <div class="auth-info">
+                <div class="info-card">
+                    <div class="info-icon">🚚</div>
+                    <h3>Envíos Rápidos</h3>
+                    <p>Entrega en 24 horas en Lima</p>
+                </div>
+                <div class="info-card">
+                    <div class="info-icon">📍</div>
+                    <h3>Rastreo en Vivo</h3>
+                    <p>Sigue tu paquete en tiempo real</p>
+                </div>
+                <div class="info-card">
+                    <div class="info-icon">💰</div>
+                    <h3>Tarifas Bajas</h3>
+                    <p>Desde S/ 8.00 por envío</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-section">
+                <h4>Shalom</h4>
+                <ul>
+                    <li><a href="#">Servicios</a></li>
+                    <li><a href="#">Envía</a></li>
+                    <li><a href="#">Shalom Store</a></li>
+                    <li><a href="#">Ayuda</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Información</h4>
+                <ul>
+                    <li><a href="#">Tarifas</a></li>
+                    <li><a href="#">Agencias</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Contacto</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Redes Sociales</h4>
+                <div class="social-links">
+                    <a href="#">f</a>
+                    <a href="#">📷</a>
+                    <a href="#">▶️</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Envíos Shalom. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="usuario-auth.js"></script>
+</body>
+</html>

@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Shalom Envíos</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navegación -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <div class="logo">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="truck-icon">
+                    <path d="M14 19H9m-5-7h12a2 2 0 0 1 2 2v7a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1v-7a2 2 0 0 1 2-2z"></path>
+                    <path d="M9 14V9a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v5"></path>
+                    <circle cx="6.5" cy="19.5" r="1.5"></circle>
+                    <circle cx="17.5" cy="19.5" r="1.5"></circle>
+                    <path d="M2 12h7"></path>
+                </svg>
+            </div>
+            <span class="logo-text">Shalom</span>
+            <ul class="nav-menu">
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="#" id="logoutBtn">Cerrar Sesión</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Dashboard Section -->
+    <section class="dashboard-section">
+        <div class="dashboard-container">
+            <!-- Sidebar -->
+            <aside class="dashboard-sidebar">
+                <div class="user-profile">
+                    <div class="user-avatar">👤</div>
+                    <h3 id="userName">Usuario</h3>
+                    <p id="userEmail">usuario@email.com</p>
+                </div>
+
+                <nav class="sidebar-menu">
+                    <a href="#" class="sidebar-item active" data-view="inicio">
+                        <span>🏠</span> Inicio
+                    </a>
+                    <a href="#" class="sidebar-item" data-view="crear-envio">
+                        <span>📝</span> Crear Envío
+                    </a>
+                    <a href="#" class="sidebar-item" data-view="mis-envios">
+                        <span>📦</span> Mis Envíos
+                    </a>
+                    <a href="#" class="sidebar-item" data-view="rastrear">
+                        <span>🔍</span> Rastrear
+                    </a>
+                    <a href="#" class="sidebar-item" data-view="perfil">
+                        <span>⚙️</span> Mi Perfil
+                    </a>
+                </nav>
+            </aside>
+
+            <!-- Main Content -->
+            <main class="dashboard-main">
+                <!-- Vista Inicio -->
+                <div class="dashboard-view active" id="vista-inicio">
+                    <h1>Bienvenido a tu Dashboard</h1>
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-icon">📦</div>
+                            <div class="stat-info">
+                                <h3 id="totalEnvios">0</h3>
+                                <p>Envíos Totales</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">✅</div>
+                            <div class="stat-info">
+                                <h3 id="enviosEntregados">0</h3>
+                                <p>Entregados</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">🚚</div>
+                            <div class="stat-info">
+                                <h3 id="enviosEnTransito">0</h3>
+                                <p>En Tránsito</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">💰</div>
+                            <div class="stat-info">
+                                <h3 id="gastoTotal">S/ 0.00</h3>
+                                <p>Gasto Total</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="quick-action">
+                        <a href="#" class="sidebar-item" data-view="crear-envio" style="display: inline-block; margin-top: 1rem;">
+                            <button class="btn-primary">+ Crear Nuevo Envío</button>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Vista Crear Envío -->
+                <div class="dashboard-view" id="vista-crear-envio">
+                    <h1>Crear Nuevo Envío</h1>
+                    <form id="crearEnvioForm" class="envio-form">
+                        <div class="form-section">
+                            <h3>Información del Paquete</h3>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Descripción del Paquete</label>
+                                    <input type="text" id="descripcion" required placeholder="Ej: Caja con artículos electrónicos">
+                                </div>
+                                <div class="form-group">
+                                    <label>Peso (kg)</label>
+                                    <input type="number" id="peso" required min="0.1" step="0.1" placeholder="0.5">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-section">
+                            <h3>Datos del Destinatario</h3>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Nombre Completo</label>
+                                    <input type="text" id="destinatarioNombre" required placeholder="Juan Pérez">
+                                </div>
+                                <div class="form-group">
+                                    <label>Teléfono</label>
+                                    <input type="tel" id="destinatarioTelefono" required placeholder="987654321">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Dirección</label>
+                                <input type="text" id="destinatarioDireccion" required placeholder="Calle, número, distrito, provincia">
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Distrito</label>
+                                    <select id="distrito" required>
+                                        <option>Seleccionar distrito</option>
+                                        <option>Lima Centro</option>
+                                        <option>San Isidro</option>
+                                        <option>Miraflores</option>
+                                        <option>Surco</option>
+                                        <option>La Molina</option>
+                                        <option>Otro</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Tipo de Envío</label>
+                                    <select id="tipoEnvio" required>
+                                        <option>Seleccionar tipo</option>
+                                        <option value="local">Envío Local (S/ 8.00)</option>
+                                        <option value="nacional">Envío Nacional (S/ 15.00)</option>
+                                        <option value="corporativo">Envío Corporativo (Personalizado)</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-section">
+                            <div class="tarifa-info">
+                                <h3>Tarifa: <span id="tarifaDisplay">S/ 0.00</span></h3>
+                                <p id="tarifaDescripcion">Selecciona un tipo de envío</p>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn-primary">Crear Envío</button>
+                    </form>
+                </div>
+
+                <!-- Vista Mis Envíos -->
+                <div class="dashboard-view" id="vista-mis-envios">
+                    <h1>Mis Envíos</h1>
+                    <div id="enviosList" class="envios-list">
+                        <p class="empty-state">No tienes envíos aún. <a href="#" class="sidebar-item" data-view="crear-envio">Crear uno ahora</a></p>
+                    </div>
+                </div>
+
+                <!-- Vista Rastrear -->
+                <div class="dashboard-view" id="vista-rastrear">
+                    <h1>Rastrear Envío</h1>
+                    <div class="search-tracking">
+                        <input type="text" id="trackingNumber" placeholder="Ingresa tu número de tracking" class="tracking-input">
+                        <button class="btn-primary">Rastrear</button>
+                    </div>
+                    <div id="trackingResult"></div>
+                </div>
+
+                <!-- Vista Perfil -->
+                <div class="dashboard-view" id="vista-perfil">
+                    <h1>Mi Perfil</h1>
+                    <div class="profile-info">
+                        <div class="profile-field">
+                            <label>Nombre:</label>
+                            <p id="profileNombre">-</p>
+                        </div>
+                        <div class="profile-field">
+                            <label>Email:</label>
+                            <p id="profileEmail">-</p>
+                        </div>
+                        <div class="profile-field">
+                            <label>Teléfono:</label>
+                            <p id="profileTelefono">-</p>
+                        </div>
+                        <button class="btn-secondary" id="logoutBtn2">Cerrar Sesión</button>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-bottom">
+            <p>&copy; 2026 Envíos Shalom. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="dashboard.js"></script>
+</body>
+</html>
