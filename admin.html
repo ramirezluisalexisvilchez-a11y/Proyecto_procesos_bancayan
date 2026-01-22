@@ -38,6 +38,7 @@
         <aside class="dashboard-sidebar">
             <ul class="sidebar-menu">
                 <li><a href="#" class="menu-link active" data-view="inicio">📊 Inicio</a></li>
+                <li><a href="#" class="menu-link" data-view="crear-envio">📝 Crear Envío</a></li>
                 <li><a href="#" class="menu-link" data-view="envios">📦 Todos los Envíos</a></li>
                 <li><a href="#" class="menu-link" data-view="usuarios">👥 Usuarios</a></li>
                 <li><a href="#" class="menu-link" data-view="estadisticas">📈 Estadísticas</a></li>
@@ -87,6 +88,95 @@
                     Email: <code>admin@shalom.com</code><br>
                     Contraseña: <code>admin123</code>
                 </div>
+            </div>
+
+            <!-- Vista: Crear Envío -->
+            <div id="vista-crear-envio" class="dashboard-view">
+                <div class="view-header">
+                    <h1>Crear Nuevo Envío</h1>
+                    <p>Registra un envío especificando remitente y destinatario</p>
+                </div>
+
+                <form id="form-envio-admin" class="envio-form admin-form">
+                    <!-- Sección Remitente -->
+                    <div class="form-section">
+                        <h3>📤 Datos del Remitente</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="remitente-nombre">Nombre Completo *</label>
+                                <input type="text" id="remitente-nombre" required placeholder="Nombre del remitente">
+                            </div>
+                            <div class="form-group">
+                                <label for="remitente-telefono">Teléfono *</label>
+                                <input type="tel" id="remitente-telefono" required placeholder="987654321">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="remitente-email">Email</label>
+                                <input type="email" id="remitente-email" placeholder="correo@ejemplo.com">
+                            </div>
+                            <div class="form-group">
+                                <label for="remitente-ciudad">Ciudad *</label>
+                                <input type="text" id="remitente-ciudad" required placeholder="Lima">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sección Destinatario -->
+                    <div class="form-section">
+                        <h3>📥 Datos del Destinatario</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="destinatario-nombre">Nombre Completo *</label>
+                                <input type="text" id="destinatario-nombre" required placeholder="Nombre del destinatario">
+                            </div>
+                            <div class="form-group">
+                                <label for="destinatario-telefono">Teléfono *</label>
+                                <input type="tel" id="destinatario-telefono" required placeholder="987654321">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="destinatario-email">Email</label>
+                                <input type="email" id="destinatario-email" placeholder="correo@ejemplo.com">
+                            </div>
+                            <div class="form-group">
+                                <label for="destinatario-ciudad">Ciudad *</label>
+                                <input type="text" id="destinatario-ciudad" required placeholder="Lima">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="destinatario-direccion">Dirección de Entrega *</label>
+                            <input type="text" id="destinatario-direccion" required placeholder="Calle, número, distrito">
+                        </div>
+                        <div class="form-group">
+                            <label for="destinatario-distrito">Distrito *</label>
+                            <input type="text" id="destinatario-distrito" required placeholder="San Isidro">
+                        </div>
+                    </div>
+
+                    <!-- Sección Paquete -->
+                    <div class="form-section">
+                        <h3>📦 Datos del Paquete</h3>
+                        <div class="form-group">
+                            <label for="descripcion-admin">Descripción del Envío *</label>
+                            <textarea id="descripcion-admin" required placeholder="Describa qué contiene el paquete"></textarea>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="peso-admin">Peso (kg) *</label>
+                                <input type="number" id="peso-admin" min="0.1" step="0.1" required placeholder="Ej: 2.5">
+                            </div>
+                            <div class="form-group">
+                                <label for="tarifa-admin">Tarifa Calculada</label>
+                                <input type="text" id="tarifa-admin" readonly placeholder="S/ 0.00">
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Registrar Envío</button>
+                </form>
             </div>
 
             <!-- Vista: Todos los Envíos -->
@@ -337,6 +427,55 @@
             
             alert('✅ Tarifas guardadas correctamente');
         }
+
+        // Calcular tarifa basada en peso
+        function calcularTarifa(peso) {
+            const tarifaBase = parseFloat(localStorage.getItem('tarifaBase')) || 15;
+            const costoKg = parseFloat(localStorage.getItem('costoKg')) || 3.5;
+            return (tarifaBase + (peso * costoKg)).toFixed(2);
+        }
+
+        // Calcular tarifa en tiempo real (Admin)
+        document.getElementById('peso-admin').addEventListener('input', function() {
+            const peso = parseFloat(this.value) || 0;
+            if (peso > 0) {
+                document.getElementById('tarifa-admin').value = 'S/ ' + calcularTarifa(peso);
+            }
+        });
+
+        // Enviar formulario de envío (Admin)
+        document.getElementById('form-envio-admin').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const nuevoEnvio = {
+                id: 'ENV-' + String(Date.now()).slice(-6),
+                remitente: document.getElementById('remitente-nombre').value,
+                remitente_telefono: document.getElementById('remitente-telefono').value,
+                remitente_email: document.getElementById('remitente-email').value,
+                remitente_ciudad: document.getElementById('remitente-ciudad').value,
+                destinatario: document.getElementById('destinatario-nombre').value,
+                destinatario_telefono: document.getElementById('destinatario-telefono').value,
+                destinatario_email: document.getElementById('destinatario-email').value,
+                destinatario_ciudad: document.getElementById('destinatario-ciudad').value,
+                direccion: document.getElementById('destinatario-direccion').value,
+                distrito: document.getElementById('destinatario-distrito').value,
+                descripcion: document.getElementById('descripcion-admin').value,
+                peso: parseFloat(document.getElementById('peso-admin').value),
+                tarifa: document.getElementById('tarifa-admin').value.replace('S/ ', ''),
+                estado: 'Pendiente',
+                usuario: 'Administrador',
+                fechaCreacion: new Date().toISOString()
+            };
+
+            let envios = JSON.parse(localStorage.getItem('shalomEnvios') || '[]');
+            envios.push(nuevoEnvio);
+            localStorage.setItem('shalomEnvios', JSON.stringify(envios));
+
+            alert('✅ Envío registrado exitosamente!\nNúmero de seguimiento: ' + nuevoEnvio.id);
+            this.reset();
+            document.getElementById('tarifa-admin').value = '';
+            cargarEstadisticasAdmin();
+        });
 
         // Limpiar todos los datos
         function limpiarTodolosDatos() {
